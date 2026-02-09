@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- Created by rainier39 (https://github.com/rainier39/NotesApp) -->
+<html lang="en-US">
+    <head>
+        <title>Notes</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="notes.js" async></script>
+    </head>
+    <body>
+        <h1>Notes</h1>
+        <fieldset id='notes'>
+        </fieldset>
+        </br>
+        <fieldset class='newnote'>
+        <legend id='legend'>New Note</legend>
+            <label for='newname'>Note Name:</label>
+            <input type='text' id='newname' name='newname'></input>
+            </br>
+            <textarea name='newcontent' id='newcontent' cols='30' rows='10'></textarea>
+            </br>
+            <input type='submit' id='submit' value="Add Note" onclick="newNote()"></input>
+        </fieldset>
+        </br>
+        <a href='https://github.com/rainier39/NotesApp'>NotesApp</a> created by rainier39.
+    </body>
+</html>

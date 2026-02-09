@@ -1,0 +1,12 @@
+/*
+ * Created by rainier39 (https://github.com/rainier39/NotesApp)
+ */
+
+/* Global */
+fieldset, input, textarea {border: 1px solid black}
+a {text-decoration: none}
+
+/* Classes */
+.newnote {padding: 15px}
+.newnote input {margin: 5px}
+.note {border: 1px solid black; margin: 4px; padding: 8px; display: inline-block; word-wrap: break-word; white-space: pre-wrap; word-break: break-word}
