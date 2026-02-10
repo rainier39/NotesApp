@@ -27,7 +27,7 @@ function render() {
         let name = key;
         let value = localStorage.getItem(key);
         // Add note HTML.
-        html += "<div class='note'>" + name + "<hr><span id='" + name.replaceAll("'", "&#39;") + "_content'>" + value + "</span><hr><input type='submit' value='Edit' onclick='editNote(&quot;" + name.replaceAll("'", "&#39;").replaceAll('"', '\\"') + "&quot;)'></input> <input type='submit' value='Delete' onclick='deleteNote(&quot;" + name.replaceAll("'", "&#39;").replaceAll('"', '\\"') + "&quot;)'></input></div>";
+        html += "<div class='note'>" + name + "<hr><span id='" + name.replaceAll("'", "&#39;") + "_content'>" + value + "</span><hr><input type='submit' value='Edit' onclick='editNote(&quot;" + name.replaceAll("'", "&#39;").replaceAll("\\", "\\\\").replaceAll('"', '\\"') + "&quot;)'></input> <input type='submit' value='Delete' onclick='deleteNote(&quot;" + name.replaceAll("'", "&#39;").replaceAll("\\", "\\\\").replaceAll('"', '\\"') + "&quot;)'></input></div>";
     });
     // Default text when there are no notes.
     if (html == "") {
