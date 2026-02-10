@@ -7,6 +7,8 @@ function newNote() {
     // Get the user's input.
     let name = document.getElementById("newname").value;
     let content = document.getElementById("newcontent").value;
+    // Sanitize content, encode HTML sensitive characters. (I needed to do this on input because bugs)
+    content = content.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     // Add the note to local storage.
     localStorage.setItem(name, content);
     // Clear the form.
@@ -27,7 +29,7 @@ function render() {
         let name = key;
         let value = localStorage.getItem(key);
         // Add note HTML.
-        html += "<div class='note'>" + name + "<hr><span id='" + name.replaceAll("'", "&#39;") + "_content'>" + value + "</span><hr><input type='submit' value='Edit' onclick='editNote(&quot;" + name.replaceAll("'", "&#39;").replaceAll("\\", "\\\\").replaceAll('"', '\\"') + "&quot;)'></input> <input type='submit' value='Delete' onclick='deleteNote(&quot;" + name.replaceAll("'", "&#39;").replaceAll("\\", "\\\\").replaceAll('"', '\\"') + "&quot;)'></input></div>";
+        html += "<div class='note'>" + name.replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<hr><span id='" + name.replaceAll("'", "&#39;") + "_content'>" + value + "</span><hr><input type='submit' value='Edit' onclick='editNote(&quot;" + name.replaceAll("&", "&amp;").replaceAll("'", "&#39;").replaceAll("\\", "\\\\").replaceAll('"', '\\"').replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "&quot;)'></input> <input type='submit' value='Delete' onclick='deleteNote(&quot;" + name.replaceAll("&", "&amp;").replaceAll("'", "&#39;").replaceAll("\\", "\\\\").replaceAll('"', '\\"').replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "&quot;)'></input></div>";
     });
     // Default text when there are no notes.
     if (html == "") {
