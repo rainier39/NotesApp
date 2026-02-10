@@ -4,16 +4,11 @@
 
 // Add a new note.
 function newNote() {
+    // Get the user's input.
     let name = document.getElementById("newname").value;
     let content = document.getElementById("newcontent").value;
-    // Make newlines work.
-    content = content.replace("\n", "</br>");
-    // Make semicolons work (this is probably very bad for copying and pasting code).
-    content = content.replace(";", ";");
-    // Store the note as a cookie with a long expiration date.
-    let expiry = new Date();
-    expiry.setTime(expiry.getTime()+(100*365*24*60*60*1000));
-    document.cookie = name + "=" + content + "; expires=" + expiry.toGMTString();
+    // Add the note to local storage.
+    localStorage.setItem(name, content);
     // Clear the form.
     document.getElementById("newname").value = "";
     document.getElementById("newcontent").value = "";
@@ -26,17 +21,14 @@ function newNote() {
 
 // Render the notes.
 function render() {
-    // Loop through the cookies to get the notes.
-    let keyValuePairs = document.cookie.split(/; */);
     let html = "";
-    for(var i = 0; i < keyValuePairs.length; i++) {
-        let name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
-        let value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
-        // Need this otherwise weird blank note shows up when there are no cookies.
-        if (name == "") break;
+    // Loop through local storage to get the notes.
+    Object.keys(localStorage).forEach(function(key) {
+        let name = key;
+        let value = localStorage.getItem(key);
         // Add note HTML.
         html += "<div class='note'>" + name + "<hr><span id='" + name + "_content'>" + value + "</span><hr><input type='submit' value='Edit' onclick='editNote(\"" + name + "\")'></input> <input type='submit' value='Delete' onclick='deleteNote(\"" + name + "\")'></input></div>";
-    }
+    });
     // Default text when there are no notes.
     if (html == "") {
         html = "No notes yet.";
@@ -58,7 +50,7 @@ function editNote(name) {
 // Delete a note.
 function deleteNote(name) {
     // Delete the cookie.
-    document.cookie = name + '=; Max-Age=0';
+    localStorage.removeItem(name);
     // Re-render the notes since this one is gone now.
     render();
 }
