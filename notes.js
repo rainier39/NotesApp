@@ -33,15 +33,15 @@ function render() {
         let value = localStorage.getItem(key);
         // Add note HTML.
         let contentPatterns = ["&", "&amp;", "'", "&#39;", "\\", "\\\\", '"', '\\"', "<", "&lt;", ">", "&gt;"];
-        html += "<div class='note'>" + name.replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<hr><span id='" + name.replaceAll("'", "&#39;") + "_content'>" + value + "</span><hr><input type='submit' value='Edit' onclick='editNote(&quot;";
+        html += "<div class='note'>" + name.replaceAll("<", "&lt;").replaceAll(">", "&gt;") + "<hr><span id='" + name.replaceAll("'", "&#39;") + "_content'>" + value + "</span><hr><input type='submit' value='Edit' class='button' onclick='editNote(&quot;";
         for (var i = 0; i < contentPatterns.length; i += 2) {
             name = name.replaceAll(contentPatterns[i], contentPatterns[i+1]);
         }
-        html += name + "&quot;)'></input> <input type='submit' value='Delete' onclick='deleteNote(&quot;" + name + "&quot;)'></input></div>";
+        html += name + "&quot;)'></input> <input type='submit' class='button' value='Delete' onclick='deleteNote(&quot;" + name + "&quot;)'></input></div>";
     });
     // Default text when there are no notes.
     if (html == "") {
-        html = "No notes yet.";
+        html = "<div class='info'>No notes yet.</div>";
     }
     // Push the HTML to the page.
     document.getElementById("notes").innerHTML = html;
@@ -57,7 +57,7 @@ function editNote(name) {
     document.getElementById("legend").innerText = "Edit Note";
     // Add a cancel button.
     if (document.getElementById("cancel") == null) {
-        document.getElementById("submit").outerHTML += "<input type='submit' id='cancel' value='Cancel Edit' onclick='cancelEdit()'>";
+        document.getElementById("submit").outerHTML += "<br><input type='submit' id='cancel' class='button' value='Cancel Edit' onclick='cancelEdit()'>";
     }
 }
 
